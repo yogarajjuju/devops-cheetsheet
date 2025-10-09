@@ -1,31 +1,58 @@
- Career guide
+# My Docker Notes (Beginner)
 
-That's an excellent idea. Much more organized.
+## 1. The Core Idea
 
-You're absolutely right. As you learn more technologies, keeping separate files for each one is a much cleaner and more professional way to structure your repository.
+The goal of Docker is to package an application and all its requirements into a standardized "box" that can run anywhere.
 
-Let's do that instead.
+- **Image** 📜: The blueprint or recipe. It’s a saved, unchangeable package.
+  - *Example:* The official `nginx` blueprint.
+- **Container** 📦: A running instance created from an Image. It's the actual "box" that is running your application.
+  - *Example:* The `my-web-server` container you created.
 
-Step 1: Create the New Docker Notes File
+> **Analogy:** An **Image** is a recipe for a cake. A **Container** is the actual cake you baked. You can bake many cakes (containers) from one recipe (image).
 
-Make sure you are in your project directory:
+## 2. Essential Commands
 
-cd ~/devops-cheatsheet
+#### Verifying Your Setup
+This is the first command to run. It downloads a test image and runs a container to confirm everything works.
+```bash
+docker run hello-world
 
-Now, run this command. It will create a brand new file called docker-notes.md and put our content inside it.
-Bash
 
-cat <<EOF > docker-notes.md
-# Docker Learning Notes
+####################################################################################
 
-## Phase 2: Running a Web Server
+Running a Service (like a Web Server)
 
-- **Image:** The blueprint or recipe (e.g., \`nginx\`).
-- **Container:** A running instance of an image.
-- **Port Mapping (\`--publish\`):** Connects a port on the host machine to a port inside the container so the outside world can access the service.
+--- This is how you run a useful, long-running application.
+------- Bash
 
-### Command to run an NGINX server:
-\`\`\`bash
-docker run --publish 8080:80 --detach --name my-web-server fnginx
-\`\`\`
-EOF
+docker run --publish 8080:80 --detach --name my-web-server nginx
+
+
+Command Breakdown:
+
+    --publish 8080:80: Connects your computer's port 8080 to the container's port 80.
+
+    --detach: Runs the container in the background.
+
+    --name my-web-server: Gives your container a custom, easy-to-remember name.
+
+    nginx: The name of the image to use.
+    
+####################################################################################################
+
+Managing Your Containers
+----- These commands help you see and control your containers.
+-------- Bash
+
+# See all containers that are CURRENTLY RUNNING
+docker ps
+
+# See ALL containers on your system (including stopped ones)
+docker ps -a
+
+# Stop a running container by its name
+docker stop my-web-server
+
+# Permanently remove a STOPPED container by its name
+docker rm my-web-server
